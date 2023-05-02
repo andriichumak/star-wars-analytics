@@ -129,7 +129,7 @@ export const HelperBarChart: React.FC<HelperBarChartProps> = ({metric, viewBy, l
                     const color = dp.lightSide ? "#00D1FF" : "#FF2055";
 
                     return <g key={dp.key} fill="white" transform={`translate(10 ${60 + i*40})`}>
-                        <text x={0} y={30}>{dp.key}</text>
+                        <text x={0} y={30} fill={focusShip === dp.key ? color : "white"}>{dp.key}</text>
                         <rect x={LEGEND_WIDTH} y={12} width={BARS_WIDTH - 10} height={24} fill="transparent" stroke="#31404d" strokeWidth={1} rx={4} />
                         <rect x={LEGEND_WIDTH} y={12} width={(BARS_WIDTH - 10) * dp.value / max} height={24} fill={focusShip === dp.key ? color : "transparent"} stroke={color} strokeWidth={2} rx={4} style={{filter: dp.lightSide ? "url(#light-shadow)" : "url(#dark-shadow)"}} />
                         <title>{legend + dp.formattedValue}</title>

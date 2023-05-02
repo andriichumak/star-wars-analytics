@@ -136,7 +136,7 @@ export const BarChart: React.FC<BarChartProps> = ({metric, viewBy, legend, filte
                     const color = dp.lightSide ? "#00D1FF" : "#FF2055";
 
                     return <g key={dp.key} fill="white" transform={`translate(10 ${60 + i*40})`}>
-                        <text x={0} y={30}>{dp.key}</text>
+                        <text x={0} y={30} fill={focusShip === dp.key ? color : "white"}>{dp.key}</text>
                         <rect x={LEGEND_WIDTH} y={12} width={(BARS_WIDTH - 10) * dp.value / max} height={24} fill={focusShip === dp.key ? color : "transparent"} stroke={color} strokeWidth={2} rx={4} style={{filter: dp.lightSide ? "url(#light-shadow)" : "url(#dark-shadow)"}} />
                         <text x={LEGEND_WIDTH + BARS_WIDTH * dp.value / max + 10} y={30} fill={color}>{dp.formattedValue}</text>
                     </g>;
