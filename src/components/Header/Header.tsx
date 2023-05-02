@@ -73,7 +73,7 @@ const ShipSelector: React.FC<ShipSelectorProps> = ({setFocusShip}) => {
         {status === "loading" && <LoadingComponent />}
         {status === "error" && <div>Failed to load ships</div>}
         {status === "success" && <select onChange={e => setFocusShip(e.target.value)} value={focusShip ?? ""}>
-            <option value="">Focus on...</option>
+            <option value="">Highlight a ship</option>
             {ships.map(({name}) => <option key={name} value={name}>{name}</option>)}
         </select>}
     </div>;
