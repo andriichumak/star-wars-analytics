@@ -129,10 +129,20 @@ export const App: React.FC = () => {
                                     <img src={section_footer} alt="Section footer" />
                                 </div>
                             </section>
-                            <section>
-                                <h1>What is the deadliest ship in the galaxy?</h1>
-                                <p>Excluding the <span className="text_dark_side">Death Star</span>, of course.</p>
-                                <div style={{display: "flex", flexDirection: "row", justifyContent: "center"}}>
+                            <section className="page_section">
+                                <div className="page_section__description">
+                                    <div className="page_section__description__cell">
+                                        <h1>What is the deadliest ship in the galaxy?</h1>
+                                        <p>Excluding the <span className="text_dark_side">Death Star</span>, of course.</p>  
+                                    </div>
+                                    <div className="page_section__description__cell">
+                                        <img src={executor} alt="Executor" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <img src={section_head} alt="Section head" style={{display: "block"}} />
+                                </div>
+                                <div className="page_section__main_chart page_section__main_chart--close-bottom">
                                     <BarChart
                                         metric={cat.FirepowerRating_1.Avg}
                                         viewBy={cat.Name_3}
