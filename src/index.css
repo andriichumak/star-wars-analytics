@@ -29,6 +29,10 @@ article {
     box-sizing: border-box;
 }
 
+article h1 {
+    font-size: 2em;
+}
+
 .text_dark_side {
     color: #FF2055;
 }

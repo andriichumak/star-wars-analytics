@@ -29,7 +29,7 @@ export const Header: React.FC<HeaderProps> = ({setFocusShip}) => {
             </g>
             <g stroke="white" fill="white">
                 <rect rx={2} x={HEADER_WIDTH / 2 - 5} y={HEADER_HEIGHT - 120 - 15} width={10} height={30} fill="#FF2055" stroke="#FF2055" style={{filter: "url(#dark-shadow)"}} />
-                <text text-anchor="middle" x={HEADER_WIDTH / 2} y={HEADER_HEIGHT - 120 + 40}>90&deg;</text>
+                <text textAnchor="middle" x={HEADER_WIDTH / 2} y={HEADER_HEIGHT - 120 + 40}>90&deg;</text>
                 {[-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6].map(i => {
                     // Gage
                     const x = HEADER_WIDTH / 2 + i * HEADER_WIDTH / 14;
