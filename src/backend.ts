@@ -3,6 +3,8 @@ import { withCaching, RecommendedCachingConfiguration } from "@gooddata/sdk-back
 import backendFactory, { ContextDeferredAuthProvider } from "@gooddata/sdk-backend-tiger";
 
 export const backend: IAnalyticalBackend = withCaching(
-    backendFactory().withAuthentication(new ContextDeferredAuthProvider()),
+    backendFactory()
+        .onHostname("https://public-examples.gooddata.com")
+        .withAuthentication(new ContextDeferredAuthProvider()),
     RecommendedCachingConfiguration,
 );
