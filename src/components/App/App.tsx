@@ -12,6 +12,7 @@ import * as cat from "../../catalog";
 import { formatLargeNumbers } from "../../constants";
 import { modifyMeasure } from "@gooddata/sdk-model";
 import executor from "../../assets/executor.svg";
+import aWing from "../../assets/a-wing.svg";
 import section_head from "../../assets/section_head.svg";
 import section_break from "../../assets/section_break.svg";
 import section_footer from "../../assets/section_footer.svg";
@@ -86,7 +87,7 @@ export const App: React.FC = () => {
                                         <p>The fastest ship in the galexy is the light-side <span className="text_light_side">A-Wing</span>. Sorry, Millenium Falcon.</p>  
                                     </div>
                                     <div className="page_section__description__cell">
-                                        <img src={executor} alt="A-Wing" />
+                                        <img src={aWing} alt="A-Wing" />
                                     </div>
                                 </div>
                                 <div>
