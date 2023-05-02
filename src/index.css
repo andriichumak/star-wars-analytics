@@ -31,6 +31,12 @@ article {
 
 article h1 {
     font-size: 2em;
+    margin-bottom: 0;
+}
+
+article h2 {
+    font-size: 1.5em;
+    margin-bottom: 0;
 }
 
 .text_dark_side {
@@ -43,6 +49,7 @@ article h1 {
 
 section {
     padding-top: 2em;
+    padding-bottom: 6em;
     width: var(--page-width);
     margin: 0 auto;
 }
@@ -60,7 +67,7 @@ section {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
 }
 
 .page_section__description__cell {
