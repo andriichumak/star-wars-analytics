@@ -1,0 +1,80 @@
+import React from "react";
+import { LoadingComponent } from "@gooddata/sdk-ui";
+import {focusShipContext} from "../../hooks/focusShip";
+import { ShipsContext } from "../../hooks/shipsList";
+
+type HeaderProps = {
+    setFocusShip: (shipId: string | null) => void;
+};
+
+// Magic numbers
+const HEADER_WIDTH = 1280;
+const HEADER_HEIGHT = 610;
+
+const randomChoice = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
+
+export const Header: React.FC<HeaderProps> = ({setFocusShip}) => {
+    return <header>
+        <svg width="100%" height="100%" viewBox={`0 0 ${HEADER_WIDTH} ${HEADER_HEIGHT}`} style={{pointerEvents: "none"}}>
+            <defs>
+                <filter id="dark-shadow">
+                    <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#FF2055" />
+                </filter>
+            </defs>
+            <g fill="white">
+            {Array.from({length: 30}).map((_, i) => {
+                // Stars
+                return <circle key={i} cx={Math.random() * HEADER_WIDTH} cy={Math.random() * HEADER_HEIGHT} r={Math.random() > 0.5 ? 1 : 1.5} className={randomChoice(["twinkle_1", "twinkle_2", "twinkle_3"])} />;
+            })}
+            </g>
+            <g stroke="white" fill="white">
+                <rect rx={2} x={HEADER_WIDTH / 2 - 5} y={HEADER_HEIGHT - 120 - 15} width={10} height={30} fill="#FF2055" stroke="#FF2055" style={{filter: "url(#dark-shadow)"}} />
+                <text text-anchor="middle" x={HEADER_WIDTH / 2} y={HEADER_HEIGHT - 120 + 40}>90&deg;</text>
+                {[-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6].map(i => {
+                    // Gage
+                    const x = HEADER_WIDTH / 2 + i * HEADER_WIDTH / 14;
+                    const delta = [2, 6].includes(Math.abs(i)) ? 10 : 3;
+
+                    return <line key={i} y1={HEADER_HEIGHT - 120 + delta} y2={HEADER_HEIGHT - 120 - delta}  x1={x} x2={x} />;
+                })}
+            </g>
+        </svg>
+        <h1 className="title">Star Wars</h1>
+        <h3 className="subtitle">Starship analysis</h3>
+        <ShipSelector setFocusShip={setFocusShip} />
+    </header>;
+};
+
+type ShipSelectorProps = {
+    setFocusShip: (shipId: string | null) => void;
+};
+
+const ShipSelector: React.FC<ShipSelectorProps> = ({setFocusShip}) => {
+    const focusShip = React.useContext(focusShipContext);
+    const {ships, status} = React.useContext(ShipsContext);
+    const ref = React.useRef<HTMLDivElement>(null);
+
+    React.useEffect(() => {
+        const handler = () => {
+            if (window.scrollY >= 307) {
+                ref.current!.classList.add("fixed");
+            } else {
+                ref.current!.classList.remove("fixed");
+            }
+        };
+        document.addEventListener("scroll", handler);
+
+        return () => {
+            document.removeEventListener("scroll", handler);
+        };
+    });
+
+    return <div className="ship-selector" ref={ref}>
+        {status === "loading" && <LoadingComponent />}
+        {status === "error" && <div>Failed to load ships</div>}
+        {status === "success" && <select onChange={e => setFocusShip(e.target.value)} value={focusShip ?? ""}>
+            <option value="">Focus on...</option>
+            {ships.map(({name}) => <option key={name} value={name}>{name}</option>)}
+        </select>}
+    </div>;
+};

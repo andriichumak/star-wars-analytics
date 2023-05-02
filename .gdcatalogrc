@@ -1,0 +1,7 @@
+{
+    "hostname": "https://public-examples.gooddata.com",
+    "workspaceId": "70632fd6849b4a4095005a5ee07b0f20",
+    "output": "src/catalog.ts",
+    "backend": "tiger",
+    "demo": true
+}

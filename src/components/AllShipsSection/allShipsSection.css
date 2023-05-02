@@ -1,0 +1,29 @@
+table {
+    width: 100%;
+    table-layout: fixed;
+    margin: 2em 0;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+tbody {
+    outline: 1px solid var(--color-foreground);
+}
+
+th {
+    text-align: left;
+    font-weight: 400;
+    font-size: 0.8em;
+}
+
+th, td {
+    padding: 1em;
+}
+
+tbody tr:not(:last-child) td {
+    border-bottom: 1px solid #31404d;
+}
+
+tr.focused td {
+    background-color: #31404d;
+}
