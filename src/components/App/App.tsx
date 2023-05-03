@@ -10,7 +10,7 @@ import { BarChart } from "../BarChart";
 import { HelperBarChart } from "../HelperBarChart";
 import { ShipsBySide } from "../ShipsBySide";
 import * as cat from "../../catalog";
-import { formatLargeNumbers, formatMeters, formatMGLT, formatCredits, formatSpeedAtm } from "../../constants";
+import { formatMeters, formatMGLT, formatCredits, formatSpeedAtm } from "../../constants";
 import { modifyMeasure } from "@gooddata/sdk-model";
 import executor from "../../assets/executor.svg";
 import aWing from "../../assets/a-wing.svg";

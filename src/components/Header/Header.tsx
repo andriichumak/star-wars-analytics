@@ -1,7 +1,5 @@
 import React from "react";
-import { LoadingComponent } from "@gooddata/sdk-ui";
 import {focusShipContext} from "../../hooks/focusShip";
-import { ShipsContext } from "../../hooks/shipsList";
 
 type HeaderProps = {
     setFocusShip: (shipId: string | null) => void;
@@ -49,9 +47,36 @@ type ShipSelectorProps = {
     setFocusShip: (shipId: string | null) => void;
 };
 
+const shipsList = [
+    {
+        sectionName: "Specialities",
+        items: [
+            "Death Star",
+            "Millennium Falcon",
+        ],
+    },
+    {
+        sectionName: "Cruisers & big ships",
+        items: [
+            "Executor",
+            "Star Destroyer",
+            "Droid Control Ship",
+            "Republic Attack Cruiser",
+            "Calamari Cruiser",
+        ],
+    },
+    {
+        sectionName: "Fighters",
+        items: [
+            "A-Wing",
+            "Tie Advanced X1",
+            "X-Wing",
+        ],
+    },
+];
+
 const ShipSelector: React.FC<ShipSelectorProps> = ({setFocusShip}) => {
     const focusShip = React.useContext(focusShipContext);
-    const {ships, status} = React.useContext(ShipsContext);
     const ref = React.useRef<HTMLDivElement>(null);
 
     React.useEffect(() => {
@@ -70,11 +95,15 @@ const ShipSelector: React.FC<ShipSelectorProps> = ({setFocusShip}) => {
     });
 
     return <div className="ship-selector" ref={ref}>
-        {status === "loading" && <LoadingComponent />}
-        {status === "error" && <div>Failed to load ships</div>}
-        {status === "success" && <select onChange={e => setFocusShip(e.target.value)} value={focusShip ?? ""}>
+        <select onChange={e => setFocusShip(e.target.value)} value={focusShip ?? ""}>
             <option value="">Highlight a ship</option>
-            {ships.map(({name}) => <option key={name} value={name}>{name}</option>)}
-        </select>}
+            {shipsList.map(group => {
+                return <optgroup label={group.sectionName} key={group.sectionName}>
+                    {group.items.map(item => {
+                        return <option value={item} key={item}>{item}</option>
+                    })}
+                </optgroup>;
+            })}
+        </select>
     </div>;
 };
