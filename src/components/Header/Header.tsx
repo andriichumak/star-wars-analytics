@@ -37,7 +37,7 @@ export const Header: React.FC<HeaderProps> = ({setFocusShip}) => {
                 })}
             </g>
         </svg>
-        <h1 className="title">Star Wars</h1>
+        <h1 className="title">Star Wars<span className="tm">&trade;</span></h1>
         <h3 className="subtitle">Starship analysis</h3>
         <ShipSelector setFocusShip={setFocusShip} />
     </header>;

@@ -54,6 +54,12 @@ h1.title {
     text-align: center;
 }
 
+h1.title .tm {
+    letter-spacing: normal;
+    font-size: 3rem;
+    vertical-align: top;
+}
+
 h3.subtitle {
     font-weight: 400;
     font-size: 2em;
