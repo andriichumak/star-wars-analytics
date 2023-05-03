@@ -12,6 +12,7 @@ type Ship = {
     crew: string,
     cost: string,
     speed: string,
+    servesTo: "Light side" | "Dark side",
 };
 type ShipsLoadingStatus = "loading" | "success" | "error";
 type ShipContext = {
@@ -38,6 +39,7 @@ export const useShips = (backend: IAnalyticalBackend, workspaceId: string): Ship
             .execution()
             .forItems([
                 cat.Name_3,
+                cat.ServesTo,
                 cat.Length_1.Avg,
                 cat.FirepowerRating_1.Avg,
                 cat.Crew_1.Avg,
@@ -45,7 +47,7 @@ export const useShips = (backend: IAnalyticalBackend, workspaceId: string): Ship
                 costMeasure,
                 cat.Mglt.Avg,
             ])
-            .withDimensions(...newTwoDimensional([cat.Name_3], [MeasureGroupIdentifier]))
+            .withDimensions(...newTwoDimensional([cat.Name_3, cat.ServesTo], [MeasureGroupIdentifier]))
             .execute()
             .then(result => result.readAll())
             .then(data => {
@@ -53,8 +55,10 @@ export const useShips = (backend: IAnalyticalBackend, workspaceId: string): Ship
                 setShips({
                     ships: facade.data().slices().toArray().map(ds => {
                         const dp = ds.dataPoints(); 
+                        const attrs = ds.sliceTitles();
                         return {
-                            name: ds.sliceTitles()[0],
+                            name: attrs[0],
+                            servesTo: attrs[1] as "Light side" | "Dark side",
                             length: dp[0].formattedValue() || "-",
                             firepower: dp[1].formattedValue() || "-",
                             crew: String((Number(dp[2].rawValue) ?? 0) + (Number(dp[3].rawValue) ?? 0)) || "-",

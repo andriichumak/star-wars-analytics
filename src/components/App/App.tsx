@@ -8,6 +8,7 @@ import { Header } from "../Header";
 import { AllShipsSection } from "../AllShipsSection";
 import { BarChart } from "../BarChart";
 import { HelperBarChart } from "../HelperBarChart";
+import { ShipsBySide } from "../ShipsBySide";
 import * as cat from "../../catalog";
 import { formatLargeNumbers } from "../../constants";
 import { modifyMeasure } from "@gooddata/sdk-model";
@@ -30,6 +31,11 @@ export const App: React.FC = () => {
                     <ShipsProvider value={shipsContextValue}>
                         <Header setFocusShip={setFocusShip} />
                         <article>
+                            <section className="text_centered">
+                                <h1>How many ships are there anyway?</h1>
+                                <p>Star Wars has shown us many spectacular battles and even more ships. But have you even wondered how many models has appeared in the movies?</p>
+                                <ShipsBySide />
+                            </section>
                             <section className="page_section">
                                 <div className="page_section__description">
                                     <div className="page_section__description__cell">
