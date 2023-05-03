@@ -10,7 +10,7 @@ import { BarChart } from "../BarChart";
 import { HelperBarChart } from "../HelperBarChart";
 import { ShipsBySide } from "../ShipsBySide";
 import * as cat from "../../catalog";
-import { formatLargeNumbers } from "../../constants";
+import { formatLargeNumbers, formatMeters, formatMGLT } from "../../constants";
 import { modifyMeasure } from "@gooddata/sdk-model";
 import executor from "../../assets/executor.svg";
 import aWing from "../../assets/a-wing.svg";
@@ -51,10 +51,9 @@ export const App: React.FC = () => {
                                 </div>
                                 <div className="page_section__main_chart">
                                     <BarChart
-                                        metric={modifyMeasure(cat.Length_1.Avg, m => m.format(formatLargeNumbers))}
+                                        metric={modifyMeasure(cat.Length_1.Avg, m => m.format(formatMeters))}
                                         viewBy={cat.Name_3}
-                                        softFilter={item => !["Death Star", "T-70 X-Wing Fighter"].includes(item.key)}
-                                        legend="Length, meters"
+                                        softFilter={item => !["Death Star"].includes(item.key)}
                                     />
                                 </div>
                                 <div>
@@ -101,9 +100,8 @@ export const App: React.FC = () => {
                                 </div>
                                 <div className="page_section__main_chart">
                                     <BarChart
-                                        metric={cat.Mglt.Avg}
+                                        metric={modifyMeasure(cat.Mglt.Avg, m => m.format(formatMGLT))}
                                         viewBy={cat.Name_3}
-                                        legend="Speed, MGLT"
                                     />
                                 </div>
                                 <div>

@@ -30,7 +30,7 @@ type BarChartState = {
 const CHART_WIDTH = 1100;
 const CHART_HEIGHT = 400;
 const LEGEND_WIDTH = 280;
-const LABELS_WIDTH = 100;
+const LABELS_WIDTH = 120;
 const BARS_WIDTH = CHART_WIDTH - LEGEND_WIDTH - LABELS_WIDTH;
 
 export const BarChart: React.FC<BarChartProps> = ({metric, viewBy, legend, filters = [], colorCode = true, softFilter = () => true, desc = false}) => {

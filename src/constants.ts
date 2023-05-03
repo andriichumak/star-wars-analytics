@@ -8,3 +8,6 @@ export const formatLargeNumbers = `[>=1000000000000]#,,,,.0 T;
 [<=-1000000]-#,,.0 M;
 [<=-1000]-#,.0 K;
 [<0]-#,##0`;
+
+export const formatMeters = "#,##0 m";
+export const formatMGLT = "#,##0 MGLT";
