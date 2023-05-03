@@ -33,14 +33,14 @@ export const App: React.FC = () => {
                         <article>
                             <section className="text_centered">
                                 <h1>How many ships are there anyway?</h1>
-                                <p>Star Wars has shown us many spectacular battles and even more ships. But have you even wondered how many models has appeared in the movies?</p>
+                                <p>Star Wars has shown us many spectacular battles and even more ships. But have you ever wondered how many models has appeared in the movies?</p>
                                 <ShipsBySide />
                             </section>
                             <section className="page_section">
                                 <div className="page_section__description">
                                     <div className="page_section__description__cell">
                                         <h1>What is the biggest ship in the galaxy?</h1>
-                                        <p>The biggest ship in the galexy is by far the dark-side <span className="text_dark_side">Executor</span>. Nothing can match it's admirable size.</p>  
+                                        <p>The biggest ship in the galaxy is by far the dark-sides <span className="text_dark_side">Executor</span>. Nothing can match its admirable size.</p>  
                                     </div>
                                     <div className="page_section__description__cell">
                                         <img src={executor} alt="Executor" />
@@ -87,7 +87,7 @@ export const App: React.FC = () => {
                                 <div className="page_section__description">
                                     <div className="page_section__description__cell">
                                         <h1>What's the fastest ship in the galaxy?</h1>
-                                        <p>The fastest ship in the galexy is the light-side <span className="text_light_side">A-Wing</span>. Sorry, Millenium Falcon.</p>  
+                                        <p>The fastest ship in the galaxy is the light-sides <span className="text_light_side">A-Wing</span>. Sorry, Millenium Falcon.</p>  
                                     </div>
                                     <div className="page_section__description__cell">
                                         <img src={aWing} alt="A-Wing" />
@@ -107,7 +107,7 @@ export const App: React.FC = () => {
                                 </div>
                                 <div className="page_section__helper_charts">
                                     <div className="page_section__helper_charts__cell">
-                                        <h2>What's the fastest ship in atmosphere?</h2>
+                                        <h2>What's the fastest ship in the atmosphere?</h2>
                                         <p>In km/h</p>
                                         <HelperBarChart
                                             metric={modifyMeasure(cat.MaxAtmospheringSpeed_1.Avg, m => m.format(formatSpeedAtm))}
