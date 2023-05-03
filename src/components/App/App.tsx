@@ -157,10 +157,18 @@ export const App: React.FC = () => {
                                     />
                                 </div>
                             </section>
-                            <section>
+                            <section className="section_table">
                                 <h1>List of all ships</h1>
                                 <p>See the specs for yourself</p>
                                 <AllShipsSection />
+                            </section>
+                            <section className="text_centered">
+                                <h1>Have we caugth your attention?</h1>
+                                <p>Launch GoodData with a 30-day trial</p>
+                                <div className="button-bar">
+                                    <a href="https://www.gooddata.com/trial/" target="_blank" className="button-bar__dark-side">Start for free</a>
+                                    <a href="https://www.gooddata.com/trial/" target="_blank" className="button-bar__light-side">Start for free</a>
+                                </div>
                             </section>
                         </article>
                     </ShipsProvider>
