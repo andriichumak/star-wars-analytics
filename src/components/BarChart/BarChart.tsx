@@ -9,7 +9,6 @@ type BarChartProps = {
     viewBy: IAttribute,
     filters?: IFilter[],
     colorCode?: boolean,
-    legend?: string,
     softFilter?: (item: BarChartDataPoint) => boolean,
     desc?: boolean,
 };
@@ -33,7 +32,7 @@ const LEGEND_WIDTH = 280;
 const LABELS_WIDTH = 120;
 const BARS_WIDTH = CHART_WIDTH - LEGEND_WIDTH - LABELS_WIDTH;
 
-export const BarChart: React.FC<BarChartProps> = ({metric, viewBy, legend, filters = [], colorCode = true, softFilter = () => true, desc = false}) => {
+export const BarChart: React.FC<BarChartProps> = ({metric, viewBy, filters = [], colorCode = true, softFilter = () => true, desc = false}) => {
     const [state, setState] = React.useState<BarChartState>({status: "loading", data: null});
     const backend = useBackend();
     const workspace = useWorkspace();
@@ -141,7 +140,6 @@ export const BarChart: React.FC<BarChartProps> = ({metric, viewBy, legend, filte
                         <text x={LEGEND_WIDTH + BARS_WIDTH * dp.value / max + 10} y={30} fill={color}>{dp.formattedValue}</text>
                     </g>;
                 })}
-                {legend && <text x={LEGEND_WIDTH + (CHART_WIDTH - LEGEND_WIDTH) / 2} y={CHART_HEIGHT - 5} textAnchor="middle" fill="white">{legend}</text>}
             </svg>
         }
     </div>;

@@ -10,7 +10,7 @@ import { BarChart } from "../BarChart";
 import { HelperBarChart } from "../HelperBarChart";
 import { ShipsBySide } from "../ShipsBySide";
 import * as cat from "../../catalog";
-import { formatLargeNumbers, formatMeters, formatMGLT } from "../../constants";
+import { formatLargeNumbers, formatMeters, formatMGLT, formatCredits, formatSpeedAtm } from "../../constants";
 import { modifyMeasure } from "@gooddata/sdk-model";
 import executor from "../../assets/executor.svg";
 import aWing from "../../assets/a-wing.svg";
@@ -64,20 +64,18 @@ export const App: React.FC = () => {
                                         <h2>How many people can fit in?</h2>
                                         <p>Measured as sum of crew and passengers</p>
                                         <HelperBarChart
-                                            metric={modifyMeasure(cat.HowManyPeopleFitsIntoAShip, m => m.format(formatLargeNumbers))}
+                                            metric={cat.HowManyPeopleFitsIntoAShip}
                                             viewBy={cat.Name_3}
                                             softFilter={item => item.key !== "Death Star"}
-                                            legend="People: "
                                         />
                                     </div>
                                     <div className="page_section__helper_charts__cell">
                                         <h2>How much do they cost?</h2>
                                         <p>In credits</p>
                                         <HelperBarChart
-                                            metric={modifyMeasure(cat.CostInCredits_1.Avg, m => m.format(formatLargeNumbers))}
+                                            metric={modifyMeasure(cat.CostInCredits_1.Avg, m => m.format(formatCredits))}
                                             viewBy={cat.Name_3}
                                             softFilter={item => item.key !== "Death Star"}
-                                            legend="Credits: "
                                         />
                                     </div>
                                 </div>
@@ -112,19 +110,17 @@ export const App: React.FC = () => {
                                         <h2>What's the fastest ship in atmosphere?</h2>
                                         <p>In km/h</p>
                                         <HelperBarChart
-                                            metric={cat.MaxAtmospheringSpeed_1.Avg}
+                                            metric={modifyMeasure(cat.MaxAtmospheringSpeed_1.Avg, m => m.format(formatSpeedAtm))}
                                             viewBy={cat.Name_3}
-                                            legend="Speed, km/h: "
                                         />
                                     </div>
                                     <div className="page_section__helper_charts__cell">
                                         <h2>Ships with lowest cost per MGLT</h2>
                                         <p>Credits per MGLT</p>
                                         <HelperBarChart
-                                            metric={modifyMeasure(cat.CostSpeedRatio, m => m.format(formatLargeNumbers))}
+                                            metric={modifyMeasure(cat.CostSpeedRatio, m => m.format(formatCredits))}
                                             viewBy={cat.Name_3}
                                             softFilter={item => item.key !== "Death Star"}
-                                            legend="Cost per MGLT: "
                                             desc
                                         />
                                     </div>
@@ -151,7 +147,6 @@ export const App: React.FC = () => {
                                         metric={cat.FirepowerRating_1.Avg}
                                         viewBy={cat.Name_3}
                                         softFilter={item => item.key !== "Death Star"}
-                                        legend="Firepower rating"
                                     />
                                 </div>
                             </section>

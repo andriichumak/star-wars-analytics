@@ -9,7 +9,6 @@ type HelperBarChartProps = {
     viewBy: IAttribute,
     filters?: IFilter[],
     colorCode?: boolean,
-    legend?: string,
     softFilter?: (item: HelperBarChartDataPoint) => boolean,
     desc?: boolean,
 };
@@ -27,12 +26,12 @@ type HelperBarChartState = {
 };
 
 // Magic numbers...
-const CHART_WIDTH = 450;
+const CHART_WIDTH = 550;
 const CHART_HEIGHT = 400;
 const LEGEND_WIDTH = 280;
 const BARS_WIDTH = CHART_WIDTH - LEGEND_WIDTH;
 
-export const HelperBarChart: React.FC<HelperBarChartProps> = ({metric, viewBy, legend, filters = [], colorCode = true, softFilter = () => true, desc = false}) => {
+export const HelperBarChart: React.FC<HelperBarChartProps> = ({metric, viewBy, filters = [], colorCode = true, softFilter = () => true, desc = false}) => {
     const [state, setState] = React.useState<HelperBarChartState>({status: "loading", data: null});
     const backend = useBackend();
     const workspace = useWorkspace();
@@ -116,7 +115,7 @@ export const HelperBarChart: React.FC<HelperBarChartProps> = ({metric, viewBy, l
         {state.status === "loading" && <LoadingComponent />}
         {state.status === "error" && <div>Something went wrong...</div>}
         {state.status === "success" &&
-            <svg width="100%" height="100%" viewBox={`0 0 ${CHART_WIDTH} ${CHART_HEIGHT}`}>
+            <svg width={CHART_WIDTH} height={CHART_HEIGHT} viewBox={`0 0 ${CHART_WIDTH} ${CHART_HEIGHT}`}>
                 <defs>
                     <filter id="light-shadow">
                         <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#00D1FF" />
@@ -132,7 +131,7 @@ export const HelperBarChart: React.FC<HelperBarChartProps> = ({metric, viewBy, l
                         <text x={0} y={30} fill={focusShip === dp.key ? color : "white"}>{dp.key}</text>
                         <rect x={LEGEND_WIDTH} y={12} width={BARS_WIDTH - 10} height={24} fill="transparent" stroke="#31404d" strokeWidth={1} rx={4} />
                         <rect x={LEGEND_WIDTH} y={12} width={(BARS_WIDTH - 10) * dp.value / max} height={24} fill={focusShip === dp.key ? color : "transparent"} stroke={color} strokeWidth={2} rx={4} style={{filter: dp.lightSide ? "url(#light-shadow)" : "url(#dark-shadow)"}} />
-                        <title>{legend + dp.formattedValue}</title>
+                        <text x={CHART_WIDTH - 15} y={30} textAnchor="end" fill={"#CCD8E2"} fontSize="0.8em">{dp.formattedValue}</text>
                     </g>;
                 })}
             </svg>
