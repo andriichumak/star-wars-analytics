@@ -158,7 +158,7 @@ export const App: React.FC = () => {
                                     <AllShipsSection />
                                 </section>
                                 <section className="text_centered">
-                                    <h1>Have we caugth your attention?</h1>
+                                    <h1>Have we caught your attention?</h1>
                                     <p>Launch GoodData with a 30-day trial</p>
                                     <div className="button-bar">
                                         <a href="https://www.gooddata.com/trial/?utm_medium=blogpost&utm_source=medium.com&utm_campaign=gooddata_star_wars_052023&utm_content=autor_patrik" target="_blank" className="button-bar__dark-side">Start for free</a>
