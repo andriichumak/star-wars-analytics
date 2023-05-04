@@ -163,6 +163,13 @@ export const App: React.FC = () => {
                                     <a href="https://www.gooddata.com/trial/?utm_medium=blogpost&utm_source=medium.com&utm_campaign=gooddata_star_wars_052023&utm_content=autor_patrik" target="_blank" className="button-bar__light-side">Start for free</a>
                                 </div>
                             </section>
+                            <section>
+                                <p>
+                                    This site is not endorsed by Lucasfilm Ltd. or Disney and is intended for entertainment and information purposes only. Star Wars and all names and pictures of Star Wars vehicles and any other Star Wars related items are registered trademarks and/or copyrights of Lucasfilm Ltd., or their respective trademark and copyright holders and are not affiliated with or owned by GoodData Corporation.
+
+                                    All original content of this site, both graphical and textual, is the intellectual property of GoodData Corporation, unless otherwise noted.
+                                </p>
+                            </section>
                         </article>
                     </ShipsProvider>
                 </FocusShipProvider>
