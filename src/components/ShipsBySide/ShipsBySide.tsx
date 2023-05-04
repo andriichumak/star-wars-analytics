@@ -1,6 +1,7 @@
 import React from "react";
 import { LoadingComponent } from "@gooddata/sdk-ui";
 import { ShipsContext } from "../../hooks/shipsList";
+import { usePageWidth } from "../../hooks/pageWidth";
 
 function circleXY(r: number, theta: number) {
     // Convert angle to radians
@@ -28,6 +29,7 @@ const OFFSET = 90; // degrees, the start of the chart is at the bottom right cor
 
 export const ShipsBySide = () => {
     const {ships, status} = React.useContext(ShipsContext);
+    const pageWidth = usePageWidth();
 
     const {d, l} = React.useMemo<{d: ArcDef, l: ArcDef} | {d: null, l: null}>(() => {
         if (!ships)
@@ -56,7 +58,7 @@ export const ShipsBySide = () => {
     }, [status, ships]);
 
     if (status === "loading" || !d || !l)
-        return <LoadingComponent />
+        return <LoadingComponent height={320} />
 
     if (status === "error")
         return <div>Coud not load the ships list.</div>

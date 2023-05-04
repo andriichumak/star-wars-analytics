@@ -1,9 +1,8 @@
 header {
-    height: 650px;
     position: relative;
 }
 
-header svg {
+header svg.stars {
     position: absolute;
     top: 0;
     left: 0;
@@ -14,12 +13,19 @@ header svg {
 .ship-selector {
     height: 6em;
     padding: 1em 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.ship-selector div {
+    height: 6em;
+    padding: 1em 0;
     top: 0;
     width: 100%;
     box-sizing: border-box;
 }
 
-.ship-selector.fixed {
+.ship-selector.fixed div {
     position: fixed;
     background: var(--color-background);
     border-bottom: 1px solid var(--color-foreground);
@@ -86,4 +92,25 @@ h3.subtitle {
 .twinkle_3 {
     animation: twinkle 6s linear infinite;
     animation-delay: 4s;
+}
+
+.gage-svg {
+    max-height: 70px;
+    margin: 2em auto;
+    display: block;
+}
+
+@media(max-width: 1100px) {
+    h1.title {
+        font-size: 3em;
+        padding-top: 80px;
+    }
+
+    h1.title .tm {
+        font-size: 2rem;
+    }
+
+    h3.subtitle {
+        font-size: 1.5em;
+    }
 }

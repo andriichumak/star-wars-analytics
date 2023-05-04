@@ -1,7 +1,12 @@
+.table-wrap {
+    overflow-y: auto;
+    margin: 2em 0;
+}
+
 table {
     width: 100%;
+    min-width: 770px;
     table-layout: fixed;
-    margin: 2em 0;
     border-spacing: 0;
     border-collapse: collapse;
 }

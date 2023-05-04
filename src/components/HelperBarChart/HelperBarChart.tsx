@@ -3,8 +3,9 @@ import { IAttribute, IFilter, IMeasure } from "@gooddata/sdk-model";
 import { LoadingComponent, useBackend, useWorkspace, DataViewFacade } from "@gooddata/sdk-ui";
 import * as cat from "../../catalog";
 import { focusShipContext } from "../../hooks/focusShip";
+import { usePageWidth } from "../../hooks/pageWidth";
 
-type HelperBarChartProps = {
+export type HelperBarChartProps = {
     metric: IMeasure,
     viewBy: IAttribute,
     filters?: IFilter[],
@@ -26,16 +27,21 @@ type HelperBarChartState = {
 };
 
 // Magic numbers...
-const CHART_WIDTH = 550;
 const CHART_HEIGHT = 400;
 const LEGEND_WIDTH = 280;
-const BARS_WIDTH = CHART_WIDTH - LEGEND_WIDTH;
 
 export const HelperBarChart: React.FC<HelperBarChartProps> = ({metric, viewBy, filters = [], colorCode = true, softFilter = () => true, desc = false}) => {
     const [state, setState] = React.useState<HelperBarChartState>({status: "loading", data: null});
     const backend = useBackend();
     const workspace = useWorkspace();
     const focusShip = React.useContext(focusShipContext);
+    const pageWidth = usePageWidth();
+    const chartWidth = pageWidth < 1100
+        ? Math.max(pageWidth - 79, 350)
+        : pageWidth >= 1280
+            ? 550
+            : pageWidth / 2 - 100;
+    const barsWidth = chartWidth - LEGEND_WIDTH;
 
     React.useEffect(() => {
         if (!backend || !workspace)
@@ -111,11 +117,11 @@ export const HelperBarChart: React.FC<HelperBarChartProps> = ({metric, viewBy, f
         return [subset, max];
     }, [state, focusShip]);
 
-    return <div style={{ width: CHART_WIDTH, height: CHART_HEIGHT }}>
+    return <div style={{ width: chartWidth, height: CHART_HEIGHT }} className="helper-bar-chart">
         {state.status === "loading" && <LoadingComponent />}
         {state.status === "error" && <div>Something went wrong...</div>}
         {state.status === "success" &&
-            <svg width={CHART_WIDTH} height={CHART_HEIGHT} viewBox={`0 0 ${CHART_WIDTH} ${CHART_HEIGHT}`}>
+            <svg width={chartWidth} height={CHART_HEIGHT} viewBox={`0 0 ${chartWidth} ${CHART_HEIGHT}`}>
                 <defs>
                     <filter id="light-shadow">
                         <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#00D1FF" />
@@ -129,9 +135,9 @@ export const HelperBarChart: React.FC<HelperBarChartProps> = ({metric, viewBy, f
 
                     return <g key={dp.key} fill="white" transform={`translate(10 ${60 + i*40})`}>
                         <text x={0} y={30} fill={focusShip === dp.key ? color : "white"}>{dp.key}</text>
-                        <rect x={LEGEND_WIDTH} y={12} width={BARS_WIDTH - 10} height={24} fill="transparent" stroke="#31404d" strokeWidth={1} rx={4} />
-                        <rect x={LEGEND_WIDTH} y={12} width={(BARS_WIDTH - 10) * dp.value / max} height={24} fill={focusShip === dp.key ? color : "transparent"} stroke={color} strokeWidth={2} rx={4} style={{filter: dp.lightSide ? "url(#light-shadow)" : "url(#dark-shadow)"}} />
-                        <text x={CHART_WIDTH - 15} y={30} textAnchor="end" fill={"#CCD8E2"} fontSize="0.8em">{dp.formattedValue}</text>
+                        <rect x={LEGEND_WIDTH} y={12} width={barsWidth - 10} height={24} fill="transparent" stroke="#31404d" strokeWidth={1} rx={4} />
+                        <rect x={LEGEND_WIDTH} y={12} width={(barsWidth - 10) * dp.value / max} height={24} fill={focusShip === dp.key ? color : "transparent"} stroke={color} strokeWidth={2} rx={4} style={{filter: dp.lightSide ? "url(#light-shadow)" : "url(#dark-shadow)"}} />
+                        <text x={chartWidth - 15} y={30} textAnchor="end" fill={"#CCD8E2"} fontSize="0.8em">{dp.formattedValue}</text>
                     </g>;
                 })}
             </svg>

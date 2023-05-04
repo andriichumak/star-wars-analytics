@@ -1,5 +1,4 @@
 :root {
-    --page-width: 1280px;
     --white: #fff;
     --color-background: #001222;
     --color-foreground: #F5F8FA;
@@ -12,7 +11,7 @@ body,
 #root {
     margin: 0;
     padding: 0;
-    min-width: var(--page-width);
+    min-width: 350px;
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: 'Orbitron', sans-serif;
@@ -31,7 +30,7 @@ body,
 article {
     width: 100%;
     background: var(--color-background);
-    padding: 0 2em;
+    padding: 0 32px;
     box-sizing: border-box;
 }
 
@@ -56,7 +55,8 @@ article h2 {
 section {
     padding-top: 2em;
     padding-bottom: 10em;
-    width: var(--page-width);
+    width: 100%;
+    max-width: 1280px;
     margin: 0 auto;
 }
 
@@ -66,7 +66,7 @@ section {
 
 .page_section {
     padding-top: 2em;
-    width: var(--page-width);
+    width: 100%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -106,34 +106,13 @@ section {
     flex: 1;
     padding-left: 2em;
     border-left: 1px solid #31404d;
+    /* box-sizing: border-box; */
+    /* width: 50%; */
 }
 
 .page_section__helper_charts__cell:last-child {
     border-right: 1px solid #31404d;
 }
-
-/* Pie chart section */
-.pie-chart {
-    display: flex;
-    flex-direction: row;
-    margin-top: 4em;
-}
-
-.pie-chart__light-side,
-.pie-chart__dark-side {
-    width: calc((1280px - 250px) / 2);
-}
-
-.pie-chart__light-side {
-    text-align: right;
-}
-
-.pie-chart__dark-side {
-    text-align: left;
-    display: flex;
-    align-items: end;
-}
-
 
 /* footer button bar */
 .button-bar {
@@ -167,4 +146,55 @@ section {
 
 .button-bar__dark-side:hover {
     text-shadow: 0 0 15px #fff;
+}
+
+.legal-notice {
+    color: #aaa;
+    padding-bottom: 0;
+    text-align: center;
+}
+
+@media(max-width: 1100px) {
+    .page_section__description {
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+    }
+
+    .page_section__description__cell {
+        width: auto;
+        max-width: 550px;
+        padding-bottom: 2em;
+        text-align: center;
+    }
+
+    .page_section__description__cell img {
+        width: 100%;
+    }
+
+    .page_section__head_separator,
+    .page_section__foot_separator,
+    .page_section__footer {
+        display: none;
+    }
+
+    .page_section__main_chart {
+        border: none;
+    }
+
+    .page_section__helper_charts {
+        flex-direction: column;
+    }
+
+    .page_section__helper_charts__cell,
+    .page_section__helper_charts__cell:last-child {
+        border: none;
+        text-align: center;
+        padding: 0;
+        /* width: 100%; */
+    }
+
+    .helper-bar-chart {
+        margin: 0 auto;
+    }
 }

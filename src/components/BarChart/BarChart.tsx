@@ -3,6 +3,8 @@ import React from "react";
 import { LoadingComponent, useBackend, useWorkspace, DataViewFacade } from "@gooddata/sdk-ui";
 import * as cat from "../../catalog";
 import { focusShipContext } from "../../hooks/focusShip";
+import {usePageWidth} from "../../hooks/pageWidth";
+import { HelperBarChart, HelperBarChartProps } from "../HelperBarChart";
 
 type BarChartProps = {
     metric: IMeasure,
@@ -26,17 +28,20 @@ type BarChartState = {
 };
 
 // Magic numbers...
-const CHART_WIDTH = 1100;
 const CHART_HEIGHT = 400;
 const LEGEND_WIDTH = 280;
 const LABELS_WIDTH = 120;
-const BARS_WIDTH = CHART_WIDTH - LEGEND_WIDTH - LABELS_WIDTH;
 
 export const BarChart: React.FC<BarChartProps> = ({metric, viewBy, filters = [], colorCode = true, softFilter = () => true, desc = false}) => {
     const [state, setState] = React.useState<BarChartState>({status: "loading", data: null});
     const backend = useBackend();
     const workspace = useWorkspace();
     const focusShip = React.useContext(focusShipContext);
+    const pageWidth = usePageWidth();
+    const chartWidth = pageWidth >= 1100
+        ? Math.min(Math.max(pageWidth - 150, 350), 1280 - 79)
+        : pageWidth - 100;
+    const barsWidth = chartWidth - LEGEND_WIDTH - LABELS_WIDTH;
 
     React.useEffect(() => {
         if (!backend || !workspace)
@@ -112,11 +117,11 @@ export const BarChart: React.FC<BarChartProps> = ({metric, viewBy, filters = [],
         return [subset, max];
     }, [state, focusShip]);
 
-    return <div style={{ width: CHART_WIDTH, height: CHART_HEIGHT }}>
+    return <div style={{ width: chartWidth, height: CHART_HEIGHT }}>
         {state.status === "loading" && <LoadingComponent />}
         {state.status === "error" && <div>Something went wrong...</div>}
         {state.status === "success" &&
-            <svg width="100%" height="100%" viewBox={`0 0 ${CHART_WIDTH} ${CHART_HEIGHT}`}>
+            <svg width="100%" height="100%" viewBox={`0 0 ${chartWidth} ${CHART_HEIGHT}`}>
                 <defs>
                     <filter id="light-shadow">
                         <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#00D1FF" />
@@ -126,7 +131,7 @@ export const BarChart: React.FC<BarChartProps> = ({metric, viewBy, filters = [],
                     </filter>
                 </defs>
                 {Array.from({length: 6}).map((_, i) => {
-                    return <g key={i} fill="white" stroke="#31404d" transform={`translate(${LEGEND_WIDTH + 10 + i*(BARS_WIDTH - 10)/5} 0)`}>
+                    return <g key={i} fill="white" stroke="#31404d" transform={`translate(${LEGEND_WIDTH + 10 + i*(barsWidth - 10)/5} 0)`}>
                         <line x1={0} y1={60} x2={0} y2={CHART_HEIGHT - 50} />
                         <text x={-8} y={CHART_HEIGHT - 30}>{Math.round((max / 5) * i)}</text>
                     </g>;
@@ -136,11 +141,21 @@ export const BarChart: React.FC<BarChartProps> = ({metric, viewBy, filters = [],
 
                     return <g key={dp.key} fill="white" transform={`translate(10 ${60 + i*40})`}>
                         <text x={0} y={30} fill={focusShip === dp.key ? color : "white"}>{dp.key}</text>
-                        <rect x={LEGEND_WIDTH} y={12} width={(BARS_WIDTH - 10) * dp.value / max} height={24} fill={focusShip === dp.key ? color : "transparent"} stroke={color} strokeWidth={2} rx={4} style={{filter: dp.lightSide ? "url(#light-shadow)" : "url(#dark-shadow)"}} />
-                        <text x={LEGEND_WIDTH + BARS_WIDTH * dp.value / max + 10} y={30} fill={color}>{dp.formattedValue}</text>
+                        <rect x={LEGEND_WIDTH} y={12} width={(barsWidth - 10) * dp.value / max} height={24} fill={focusShip === dp.key ? color : "transparent"} stroke={color} strokeWidth={2} rx={4} style={{filter: dp.lightSide ? "url(#light-shadow)" : "url(#dark-shadow)"}} />
+                        <text x={LEGEND_WIDTH + barsWidth * dp.value / max + 10} y={30} fill={color}>{dp.formattedValue}</text>
                     </g>;
                 })}
             </svg>
         }
     </div>;
+};
+
+export const BarChartAutoSelect: React.FC<BarChartProps & HelperBarChartProps> = (props) => {
+    const pageWidth = usePageWidth();
+
+    if (pageWidth <= 1100) {
+        return <HelperBarChart {...props} />;
+    }
+
+    return <BarChart {...props} />;
 };
