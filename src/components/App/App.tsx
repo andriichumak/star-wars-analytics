@@ -62,7 +62,7 @@ export const App: React.FC = () => {
                                 <div className="page_section__helper_charts">
                                     <div className="page_section__helper_charts__cell">
                                         <h2>How many people can fit in?</h2>
-                                        <p>Measured as sum of crew and passengers</p>
+                                        <p>Sum of crew and passengers</p>
                                         <HelperBarChart
                                             metric={cat.HowManyPeopleFitsIntoAShip}
                                             viewBy={cat.Name_3}
@@ -87,7 +87,7 @@ export const App: React.FC = () => {
                                 <div className="page_section__description">
                                     <div className="page_section__description__cell">
                                         <h1>What's the fastest ship in the galaxy?</h1>
-                                        <p>The fastest ship in the galaxy is the light-sides <span className="text_light_side">A-Wing</span>. Sorry, Millenium Falcon.</p>  
+                                        <p>The fastest ship in the galaxy is the light-sides <span className="text_light_side">A-Wing</span>. Sorry, Millennium Falcon.</p>  
                                     </div>
                                     <div className="page_section__description__cell">
                                         <img src={aWing} alt="A-Wing" />
@@ -108,7 +108,7 @@ export const App: React.FC = () => {
                                 <div className="page_section__helper_charts">
                                     <div className="page_section__helper_charts__cell">
                                         <h2>What's the fastest ship in the atmosphere?</h2>
-                                        <p>In km/h</p>
+                                        <p>In kph</p>
                                         <HelperBarChart
                                             metric={modifyMeasure(cat.MaxAtmospheringSpeed_1.Avg, m => m.format(formatSpeedAtm))}
                                             viewBy={cat.Name_3}
@@ -116,7 +116,7 @@ export const App: React.FC = () => {
                                     </div>
                                     <div className="page_section__helper_charts__cell">
                                         <h2>Ships with lowest cost per MGLT</h2>
-                                        <p>Credits per MGLT</p>
+                                        <p>In credits per MGLT</p>
                                         <HelperBarChart
                                             metric={modifyMeasure(cat.CostSpeedRatio, m => m.format(formatCredits))}
                                             viewBy={cat.Name_3}
